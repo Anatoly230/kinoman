@@ -1,11 +1,10 @@
 
-import { createElement } from 'render.js';
+import { createElement } from './render.js';
 
-export default class ItemСreater {
-    constructor(template) {
-    }
+export class ItemСreater {
+
     getTemplate() {
-        return template()
+        return getModuletemplate()
     }
     getElement() {
         if (!this.element) {
