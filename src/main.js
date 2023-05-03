@@ -2,6 +2,7 @@ import { render } from './render.js';
 import FilmsPresenter from './presenter/films-presenter.js';
 import HeaderProfileInfo from './view/profile-info-view.js';
 import FooterStatistic from './view/footer-statistic-view.js';
+import {comments} from './service/comment.js';
 
 const bodyElement = document.querySelector('body');
 const pageHeader = bodyElement.querySelector('.header');

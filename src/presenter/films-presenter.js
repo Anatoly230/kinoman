@@ -8,9 +8,7 @@ import FilmslistTopView from '../view/films-list-top-view.js';
 import FilmslistContainerView from '../view/films-list-container-view.js';
 import ButtonShowMoreView from '../view/button-show-more-view.js';
 import Popup from '../view/popup-view.js';
-
 import { FILM_COUNT } from '../const.js';
-
 import { render } from '../render.js';
 
 
@@ -54,7 +52,7 @@ console.dir(container);
         render(this.filmsListMost, this.filmsContainer.getElement())
         render(this.filmsListTop, this.filmsContainer.getElement())
         render(this.filmsContainer, this.container)
-        render(this.popup, this.container.parentElement)
+        // render(this.popup, this.container.parentElement)
     }
 
 }
