@@ -27,7 +27,7 @@ export default class FilmsPresenter {
     popup = new Popup();
 
     init(container) {
-console.dir(container);
+// console.dir(container);
         this.container = container;
 
         for (let i = 0; i < FILM_COUNT; i++) {
