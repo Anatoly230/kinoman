@@ -6,7 +6,7 @@
   "scripts": {
     "lint": "eslint src/",
     "build": "webpack --mode production",
-    "start": "webpack serve --mode development --open --allowed-hosts all"
+    "start": "webpack serve --mode development --allowed-hosts all"
   },
   "devDependencies": {
     "@babel/core": "^7.16.0",
@@ -28,5 +28,8 @@
   ],
   "engines": {
     "node": "16"
+  },
+  "dependencies": {
+    "dayjs": "^1.11.7"
   }
 }

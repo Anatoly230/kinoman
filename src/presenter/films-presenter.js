@@ -11,7 +11,6 @@ import Popup from '../view/popup-view.js';
 import { FILM_COUNT } from '../const.js';
 import { render } from '../render.js';
 
-
 export default class FilmsPresenter {
 
     filter = new SortView();
@@ -26,20 +25,23 @@ export default class FilmsPresenter {
     buttonShowMoreView = new ButtonShowMoreView();
     popup = new Popup();
 
-    init(container) {
-// console.dir(container);
+    init(container, filmsModel, commentsModel) {
         this.container = container;
+        this.filmsModel = filmsModel;
+        this.commentsModel = commentsModel;
+        this.films = [...filmsModel.get()];
+        console.log(filmsModel.get());
 
         for (let i = 0; i < FILM_COUNT; i++) {
-            render(new CardView(), this.filmsListContainer.getElement())
+            render(new CardView(this.films[i]), this.filmsListContainer.getElement())
         }
 
         for (let i = 0; i < 2; i++) {
-            render(new CardView(), this.filmsListContainerMost.getElement())
+            render(new CardView(this.films[i]), this.filmsListContainerMost.getElement())
         }
 
         for (let i = 0; i < 2; i++) {
-            render(new CardView(), this.filmsListContainerTop.getElement())
+            render(new CardView(this.films[i]), this.filmsListContainerTop.getElement())
         }
 
         render(this.filmsListContainerTop, this.filmsListTop.getElement())
