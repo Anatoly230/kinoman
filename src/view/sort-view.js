@@ -8,18 +8,20 @@ function createSortViewtemplate() {
   </ul>`
 }
 
-
 export default class SortView {
-  getTemplate() {
-    return createSortViewtemplate()
+  #element = null;
+  get template() {
+    return createSortViewtemplate();
   }
-  getElement() {
-    if (!this.element) {
-      this.element = createElement(this.getTemplate());
+
+  get element() {
+    if (!this.#element) {
+      this.#element = createElement(this.template);
     }
-    return this.element;
+    return this.#element;
   }
-  removeElevent() {
-    this.element = null;
+
+  removeElement() {
+    this.#element = null;
   }
-}
+} 

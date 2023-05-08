@@ -20,3 +20,4 @@ render(new HeaderProfileInfo(), pageHeader);
 render(new FooterStatistic(), footeStatistics);
 filmsPresenter.init(pageBody, filmsModel, commentsModel)
 
+

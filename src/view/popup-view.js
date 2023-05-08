@@ -12,7 +12,7 @@ function getPopupTemplate(film, commentaries) {
     actors,
     description
   } = film.filmInfo;
-  const {comments} = film;
+  const { comments } = film;
 
 
   return `
@@ -179,25 +179,26 @@ function getPopupTemplate(film, commentaries) {
     `
 }
 
+
 export default class Popup {
+  #element = null;
   constructor(filmInfo, comments) {
     this.film = filmInfo[0];
     this.comments = comments;
   }
-
-  getTemplate() {
+  get template() {
     return getPopupTemplate(this.film, this.comments);
   }
 
-  getElement() {
-    if (!this.elemnt) {
-      this.element = createElement(this.getTemplate());
+  get element() {
+    if (!this.#element) {
+      this.#element = createElement(this.template);
     }
-    return this.element;
+    return this.#element;
   }
 
   removeElement() {
-    this.element = null;
+    this.#element = null;
   }
 }
 

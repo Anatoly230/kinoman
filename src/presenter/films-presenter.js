@@ -23,37 +23,37 @@ export default class FilmsPresenter {
     filmsListContainerMost = new FilmslistContainerView();
     filmsListContainerTop = new FilmslistContainerView();
     buttonShowMoreView = new ButtonShowMoreView();
- 
+
 
     init(container, filmsModel, commentsModel) {
         this.container = container;
         this.filmsModel = filmsModel;
         this.commentsModel = commentsModel;
         this.films = [...filmsModel.get()];
-           
+
         for (let i = 0; i < FILM_COUNT; i++) {
-            render(new CardView(this.films[i]), this.filmsListContainer.getElement())
+            render(new CardView(this.films[i]), this.filmsListContainer.element)
         }
 
         for (let i = 0; i < 2; i++) {
-            render(new CardView(this.films[i]), this.filmsListContainerMost.getElement())
+            render(new CardView(this.films[i]), this.filmsListContainerMost.element)
         }
 
         for (let i = 0; i < 2; i++) {
-            render(new CardView(this.films[i]), this.filmsListContainerTop.getElement())
+            render(new CardView(this.films[i]), this.filmsListContainerTop.element)
         }
 
-        render(this.filmsListContainerTop, this.filmsListTop.getElement())
-        render(this.filmsListContainerMost, this.filmsListMost.getElement())
+        render(this.filmsListContainerTop, this.filmsListTop.element)
+        render(this.filmsListContainerMost, this.filmsListMost.element)
         render(this.navigation, this.container)
         render(this.filter, this.container)
-        render(this.filmsListContainer, this.filmsList.getElement())
-        render(this.buttonShowMoreView, this.filmsList.getElement())
-        render(this.filmsList, this.filmsContainer.getElement())
-        render(this.filmsListMost, this.filmsContainer.getElement())
-        render(this.filmsListTop, this.filmsContainer.getElement())
+        render(this.filmsListContainer, this.filmsList.element)
+        render(this.buttonShowMoreView, this.filmsList.element)
+        render(this.filmsList, this.filmsContainer.element)
+        render(this.filmsListMost, this.filmsContainer.element)
+        render(this.filmsListTop, this.filmsContainer.element)
         render(this.filmsContainer, this.container)
-        render(new Popup(this.films,this.commentsMode), this.container.parentElement)
+        // render(new Popup(this.films,this.commentsMode), this.container.parentElement)
     }
 
 }
