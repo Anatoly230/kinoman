@@ -1,22 +1,4 @@
 import dayjs from 'dayjs';
-// import { createElement } from './render.js';
-
-// export class ItemСreater {
-
-//     getTemplate() {
-//         return getModuletemplate()
-//     }
-//     getElement() {
-//         if (!this.element) {
-//             this.element = createElement(this.getTemplate());
-//         }
-//         return this.element;
-//     }
-//     removeElevent() {
-//         this.element = null;
-//     }
-// }
-
 
 function getValueOfArguments(from, to) {
   if (typeof from !== 'number') {
@@ -99,8 +81,8 @@ function arrayCopy(instance, target) {
   return target;
 }
 
-function arrayScatter(arr) {
-  arr = arrayClone(arr),
+function arrayScatter(array) {
+  let arr = arrayClone(array),
     result = [];
   while (arr.length > 0) {
     result.push(...arr.splice(getRandomNum(0, arr.length)))
@@ -157,16 +139,24 @@ function getRandomDay() {
 }
 
 
-function getRandomDate(fixYear) {
-  return new Date(getRandomYear(fixYear), getRandomMonth(), getRandomDay())
+function getRandomDate() {
+  return new Date(getRandomYear(), getRandomMonth(), getRandomDay())
 }
 
-function humanizeTaskDuedate(dueDate = getRandomDate(2023)) {
-  return dayjs(dueDate).format('D MMMM')
+function humanizeTaskDuedate(dueDate) {
+  return dayjs(dueDate).format('DD MMMM YYYY')
+}
+
+function formatStringToYear(dueDate) {
+  return dayjs(dueDate).format('YYYY')
+}
+
+function formatMinutsToTime(minuts) {
+  return `${Math.floor(minuts / 60)} час. ${minuts % 60} мин.`;
 }
 
 function getTrueOrFalse() {
   return getRandomNum(1, 0) ? true : false;
 }
 
-export {getTrueOrFalse, getRangeNumbers, arrayCopy, detachFromArray, getRandomFloat,selectFromArray, getRandomNum, getObjects, humanizeTaskDuedate };
+export { getTrueOrFalse, getRangeNumbers, arrayCopy, arrayScatter, detachFromArray, getRandomFloat, selectFromArray, getRandomNum, getObjects, getRandomDate, humanizeTaskDuedate, formatStringToYear, formatMinutsToTime};

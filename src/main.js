@@ -18,6 +18,5 @@ const filmsPresenter = new FilmsPresenter();
 
 render(new HeaderProfileInfo(), pageHeader);
 render(new FooterStatistic(), footeStatistics);
-console.log(filmsModel.get());
 filmsPresenter.init(pageBody, filmsModel, commentsModel)
 

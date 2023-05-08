@@ -1,4 +1,4 @@
-import { getRandomFloat, getTrueOrFalse, getRangeNumbers, selectFromArray, getRandomNum, getObjects, humanizeTaskDuedate } from '../utils.js';
+import { getRandomFloat, getTrueOrFalse, getRangeNumbers, selectFromArray, getRandomNum, getObjects, getRandomDate } from '../utils.js';
 import { titles } from './data/titles.js';
 import { countries } from './data/countries.js'
 import { descriptions } from './data/descriptions.js'
@@ -27,7 +27,7 @@ function generateFilm() {
         'filmInfo': {
             'title': title.getElement(),
             'alternativeTitle': title.getElement(),
-            'totalRating': getRandomFloat(10, 4, 1),
+            'totalRating': getRandomFloat(9, 4, 1),
             'poster': getFilmPath(),
             'ageRating': getRandomNum(18, 0),
             'director': director.getElement(),
@@ -35,7 +35,7 @@ function generateFilm() {
             'actors': Array.from({ length: getRandomNum(8, 1) }, actor.getElement)
             ,
             'release': {
-                'date': humanizeTaskDuedate(),
+                'date':getRandomDate(),
                 'releaseCountry': country.getElement()
             },
             'runtime': getRandomNum(120, 60),
@@ -45,7 +45,7 @@ function generateFilm() {
         'userDetails': {
             'watchlist': getTrueOrFalse(),
             'alreadyWatched': getTrueOrFalse(),
-            'watchingDate': humanizeTaskDuedate(),
+            'watchingDate': getRandomDate(),
             'favorite': getTrueOrFalse()
         }
     }

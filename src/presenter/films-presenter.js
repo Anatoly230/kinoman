@@ -23,15 +23,14 @@ export default class FilmsPresenter {
     filmsListContainerMost = new FilmslistContainerView();
     filmsListContainerTop = new FilmslistContainerView();
     buttonShowMoreView = new ButtonShowMoreView();
-    popup = new Popup();
+ 
 
     init(container, filmsModel, commentsModel) {
         this.container = container;
         this.filmsModel = filmsModel;
         this.commentsModel = commentsModel;
         this.films = [...filmsModel.get()];
-        console.log(filmsModel.get());
-
+           
         for (let i = 0; i < FILM_COUNT; i++) {
             render(new CardView(this.films[i]), this.filmsListContainer.getElement())
         }
@@ -54,7 +53,7 @@ export default class FilmsPresenter {
         render(this.filmsListMost, this.filmsContainer.getElement())
         render(this.filmsListTop, this.filmsContainer.getElement())
         render(this.filmsContainer, this.container)
-        // render(this.popup, this.container.parentElement)
+        render(new Popup(this.films,this.commentsMode), this.container.parentElement)
     }
 
 }

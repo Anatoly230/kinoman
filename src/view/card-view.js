@@ -1,4 +1,5 @@
 import { createElement } from "../render.js";
+import { formatStringToYear, formatMinutsToTime } from "../utils.js";
 
 
 const createCardViewTemplate = (filmInfo, commentsLength = 3) => {
@@ -14,8 +15,8 @@ const createCardViewTemplate = (filmInfo, commentsLength = 3) => {
       <h3 class="film-card__title">${title}</h3>
       <p class="film-card__rating">${totalRating}</p>
       <p class="film-card__info">
-        <span class="film-card__year">${release.date}</span>
-        <span class="film-card__duration">${runtime}</span>
+        <span class="film-card__year">${formatStringToYear(release.date)}</span>
+        <span class="film-card__duration">${formatMinutsToTime(runtime)}</span>
         <span class="film-card__genre">${genre}</span>
       </p>
       <img src="${poster}" alt="" class="film-card__poster">
@@ -34,10 +35,11 @@ const createCardViewTemplate = (filmInfo, commentsLength = 3) => {
 export default class CardView {
   constructor(film) {
     this.film = film.filmInfo;
+    this.comments = film.comments;
   }
 
   getTemplate() {
-    return createCardViewTemplate(this.film);
+    return createCardViewTemplate(this.film, this.comments.length);
   }
 
   getElement() {

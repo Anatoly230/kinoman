@@ -1,4 +1,4 @@
-import { selectFromArray, humanizeTaskDuedate, getRandomNum } from '../utils.js';
+import { selectFromArray, getRandomDate, getRandomNum } from '../utils.js';
 import { comments } from './data/comments.js';
 import { authors } from './data/authors.js';
 import { emotions } from './data/emotions.js';
@@ -7,7 +7,7 @@ const TOTAL_COMMENTS_COUNT = 100;
 class CommentGen {
   author = selectFromArray(authors);
   comment = selectFromArray(comments);
-  date = humanizeTaskDuedate();
+  date = getRandomDate();
   emotion = selectFromArray(emotions);
   constructor(id) {
     this.id = id;
