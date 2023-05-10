@@ -1,5 +1,6 @@
 import { createElement } from "../render.js";
 import { formatStringToYear, formatMinutsToTime } from "../utils.js";
+import Popup from "./popup-view.js";
 
 
 const createCardViewTemplate = (filmInfo, commentsLength = 3) => {
@@ -33,24 +34,23 @@ const createCardViewTemplate = (filmInfo, commentsLength = 3) => {
 
 
 export default class CardView {
+  #element = null;
   constructor(film) {
     this.film = film.filmInfo;
     this.comments = film.comments;
   }
-
-  getTemplate() {
+  get template() {
     return createCardViewTemplate(this.film, this.comments.length);
   }
 
-  getElement() {
-    if (!this.element) {
-      this.element = createElement(this.getTemplate());
+  get element() {
+    if (!this.#element) {
+      this.#element = createElement(this.template);
     }
-
-    return this.element;
+    return this.#element;
   }
 
   removeElement() {
-    this.element = null;
+    this.#element = null;
   }
 }

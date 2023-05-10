@@ -9,18 +9,19 @@ function getProfileInfoTemplate() {
 }
 
 export default class HeaderProfileInfo {
-    getTemplate() {
+    #element = null;
+    get template() {
         return getProfileInfoTemplate();
     }
 
-    getElement() {
-        if (!this.elemnt) {
-            this.element = createElement(this.getTemplate());
+    get element() {
+        if (!this.#element) {
+            this.#element = createElement(this.template);
         }
-        return this.element;
+        return this.#element;
     }
 
     removeElement() {
-        this.element = null;
+        this.#element = null;
     }
 } 
