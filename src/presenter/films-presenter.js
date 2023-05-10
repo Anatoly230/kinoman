@@ -10,6 +10,8 @@ import ButtonShowMoreView from '../view/button-show-more-view.js';
 import Popup from '../view/popup-view.js';
 import { FILM_COUNT } from '../const.js';
 import { render } from '../render.js';
+import { getParentElement } from '../dom-manipulation.js';
+
 
 export default class FilmsPresenter {
 
@@ -23,14 +25,14 @@ export default class FilmsPresenter {
     filmsListContainerMost = new FilmslistContainerView();
     filmsListContainerTop = new FilmslistContainerView();
     buttonShowMoreView = new ButtonShowMoreView();
- 
+
 
     init(container, filmsModel, commentsModel) {
         this.container = container;
         this.filmsModel = filmsModel;
         this.commentsModel = commentsModel;
         this.films = [...filmsModel.get()];
-           
+
         for (let i = 0; i < FILM_COUNT; i++) {
             render(new CardView(this.films[i]), this.filmsListContainer.getElement())
         }
@@ -42,7 +44,15 @@ export default class FilmsPresenter {
         for (let i = 0; i < 2; i++) {
             render(new CardView(this.films[i]), this.filmsListContainerTop.getElement())
         }
+        this.filmsListContainer.getElement().addEventListener('click', function (e) {
+            const link = getParentElement(e.target, 'film-card__link')
+            if (link) {
+                console.log(link.classList);
+                console.log('start the popup');
 
+            }
+        }
+        )
         render(this.filmsListContainerTop, this.filmsListTop.getElement())
         render(this.filmsListContainerMost, this.filmsListMost.getElement())
         render(this.navigation, this.container)
@@ -53,7 +63,7 @@ export default class FilmsPresenter {
         render(this.filmsListMost, this.filmsContainer.getElement())
         render(this.filmsListTop, this.filmsContainer.getElement())
         render(this.filmsContainer, this.container)
-        render(new Popup(this.films,this.commentsMode), this.container.parentElement)
+        // render(new Popup(this.films,this.commentsMode), this.container.parentElement)
     }
 
 }
