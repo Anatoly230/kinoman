@@ -1,3 +1,4 @@
-const FILM_COUNT = 5;
+const FILM_COUNT = 30;
+const COMMENTS_RANGE = 200;
 
-export { FILM_COUNT };
+export { FILM_COUNT, COMMENTS_RANGE };

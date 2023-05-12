@@ -10,7 +10,6 @@ import ButtonShowMoreView from '../view/button-show-more-view.js';
 import Popup from '../view/popup-view.js';
 import { FILM_COUNT } from '../const.js';
 import { render } from '../render.js';
-import { getParentElement } from '../dom-manipulation.js';
 
 
 export default class FilmsPresenter {
@@ -46,17 +45,9 @@ export default class FilmsPresenter {
         for (let i = 0; i < 2; i++) {
             render(new CardView(this.films[i]), this.filmsListContainerTop.element)
         }
-        this.filmsListContainer.getElement().addEventListener('click', function (e) {
-            const link = getParentElement(e.target, 'film-card__link')
-            if (link) {
-                console.log(link.classList);
-                console.log('start the popup');
 
-            }
-        }
-        )
-        render(this.filmsListContainerTop, this.filmsListTop.getElement())
-        render(this.filmsListContainerMost, this.filmsListMost.getElement())
+        render(this.filmsListContainerTop, this.filmsListTop.element)
+        render(this.filmsListContainerMost, this.filmsListMost.element)
         render(this.navigation, this.container)
         render(this.filter, this.container)
         render(this.filmsListContainer, this.filmsList.element)

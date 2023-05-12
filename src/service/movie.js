@@ -8,8 +8,8 @@ import { directors } from './data/directors.js';
 import { writers } from './data/writers.js';
 import { genres } from './data/genres.js';
 import Randomizer from './logic/randomizer.js';
-import { getRandomId } from './comment.js';
-import { FILM_COUNT } from '../const.js';
+
+import { FILM_COUNT, COMMENTS_RANGE } from '../const.js';
 
 const title = new Randomizer(titles);
 const country = new Randomizer(countries);
@@ -23,7 +23,7 @@ const genre = new Randomizer(genres);
 function generateFilm() {
     return {
         'id': null,
-        'comments': Array.from({ length: getRandomNum(10, 0) }, getRandomId),
+        'comments': Array.from({ length: getRandomNum(COMMENTS_RANGE, 0) }, getRandomNum),
         'filmInfo': {
             'title': title.getElement(),
             'alternativeTitle': title.getElement(),
@@ -35,7 +35,7 @@ function generateFilm() {
             'actors': Array.from({ length: getRandomNum(8, 1) }, actor.getElement)
             ,
             'release': {
-                'date':getRandomDate(),
+                'date': getRandomDate(),
                 'releaseCountry': country.getElement()
             },
             'runtime': getRandomNum(120, 60),
@@ -60,6 +60,9 @@ function generateFilms() {
 }
 
 export default class FilmsModel {
-    films = generateFilms();
-    get = () => this.films;
+    #films;
+    constructor() {
+        this.#films = generateFilms()
+    }
+    get = () => this.#films;
 }

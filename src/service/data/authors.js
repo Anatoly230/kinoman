@@ -31,5 +31,15 @@ const authors = [
     'Ильина Дарья Антоновна'
 ];
 
-export { authors };
+const lastNames = getAuthorsData(authors, 0),
+    names = getAuthorsData(authors, 1),
+    patronymic = getAuthorsData(authors, 2);
+
+function getAuthorsData(array, index) {
+    return array.map(function (item) {
+        return item.split(' ')[index];
+    })
+}
+
+export { lastNames, names, patronymic };
 
