@@ -5,7 +5,7 @@ import { emotions } from './data/emotions.js';
 
 
 
-export function getComment() {
+function getComment() {
   return {
     author: `${selectFromArray(lastNames)} ${selectFromArray(names)} ${selectFromArray(patronymic)}`,
     comment: selectFromArray(comments),
@@ -15,8 +15,7 @@ export function getComment() {
 }
 
 
-export function getCommentCount(films) {
-  console.log(films);
+function getCommentCount(films) {
   return films.reduce((count, film) => {
     return count + film.comments.length;
   }, 0)
@@ -24,7 +23,7 @@ export function getCommentCount(films) {
 
 export default function generateComments(films) {
   const commentCount = getCommentCount(films);
-  return Array.from({ length: commentCount }, (value, index) => {
+  return Array.from({ length: commentCount }, (_value, index) => {
     const comment = getComment();
     return {
       id: index + 1,

@@ -4,6 +4,7 @@ import HeaderProfileInfo from './view/profile-info-view.js';
 import FooterStatistic from './view/footer-statistic-view.js';
 import FilmsModel from './service/movie.js';
 import CommentsModel from './service/comments-model.js';
+import { comments } from './service/data/comments.js';
 
 
 
@@ -14,13 +15,13 @@ const pageFooter = bodyElement.querySelector('.footer');
 const footeStatistics = pageFooter.querySelector('.footer__statistics');
 
 const filmsModel = new FilmsModel();
-// const commentsModel = new CommentsModel();
+const commentsModel = new CommentsModel(filmsModel.get());
 
 const filmsPresenter = new FilmsPresenter();
 
 
 render(new HeaderProfileInfo(), pageHeader);
 render(new FooterStatistic(), footeStatistics);
-filmsPresenter.init(pageBody, filmsModel)
+filmsPresenter.init(pageBody, filmsModel, commentsModel)
 
 

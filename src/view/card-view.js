@@ -1,9 +1,7 @@
 import { createElement } from "../render.js";
 import { formatStringToYear, formatMinutsToTime } from "../utils.js";
-import Popup from "./popup-view.js";
 
-
-const createCardViewTemplate = (filmInfo, commentsLength = 3) => {
+const createCardViewTemplate = (filmInfo, commentsLength) => {
   const {
     title, totalRating,
     release, runtime,
