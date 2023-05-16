@@ -1,4 +1,4 @@
-import { selectFromArray, getRandomDate, getRandomNum } from '../utils.js';
+import { selectFromArray, getRandomDate, getRandomNum, detachFromArray } from '../utils.js';
 import { comments } from './data/comments.js';
 import { lastNames, names, patronymic } from './data/authors.js';
 import { emotions } from './data/emotions.js';
@@ -20,16 +20,34 @@ function getCommentCount(films) {
     return count + film.comments.length;
   }, 0)
 }
+function getBoundariesOfComments(films) {
+  let result = new Set(films.map((film) => {
+    return film.comments;
+  }).flat(Infinity))
+  return Array.from(result);
+}
 
 export default function generateComments(films) {
   const commentCount = getCommentCount(films);
+  let ids = getBoundariesOfComments(films);
   return Array.from({ length: commentCount }, (_value, index) => {
     const comment = getComment();
     return {
-      id: index + 1,
+      id: detachFromArray(ids),
       ...comment,
     }
 
   })
 }
+// export default function generateComments(films) {
+//   const commentCount = getCommentCount(films);
+//   return Array.from({ length: commentCount }, (_value, index) => {
+//     const comment = getComment();
+//     return {
+//       id: index + 1,
+//       ...comment,
+//     }
+
+//   })
+// }
 
