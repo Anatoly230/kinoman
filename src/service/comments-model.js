@@ -12,7 +12,6 @@ export default class CommentsModel {
 
     #generateAllComments() {
         this.#allComments = generateComments(this.#filmsModel);
-        console.log(this.#allComments);
     }
     get = (film) => {
 

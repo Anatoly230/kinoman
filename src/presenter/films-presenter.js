@@ -11,6 +11,7 @@ import Popup from '../view/popup-view.js';
 import CommentView from '../view/comment-view.js';
 import { FILM_COUNT_PER_STEP } from '../const.js';
 import { render } from '../render.js';
+import ListEmptyView from '../view/list-empty-view.js';
 
 
 export default class FilmsPresenter {
@@ -25,6 +26,7 @@ export default class FilmsPresenter {
     #filmsListContainerMost = new FilmslistContainerView();
     #filmsListContainerTop = new FilmslistContainerView();
     #buttonShowMoreView = new ButtonShowMoreView();
+    #listEmptyView = new ListEmptyView();
     #filmDetailsComponent;
     #container;
     #filmsModel;
@@ -49,7 +51,8 @@ export default class FilmsPresenter {
 
     #renderFilmBoard = () => {
         if (this.#films.length <= 0) {
-            this.#renderEmptyPage()
+            console.log(this.#listEmptyView.element);
+            render(this.#listEmptyView, this.#filmsList.element)
         } else {
 
             this.#films.slice(0, Math.min(this.#films.length, this.#renderFilmCount)).forEach(film => {
@@ -67,18 +70,14 @@ export default class FilmsPresenter {
                 // console.log(this.#films[i].filmInfo);
                 // this.#renderFilm(this.#films[i], this.#filmsListContainerTop)
             }
-            render(this.#filmsList, this.#filmsContainer.element)
-            render(this.#filmsContainer, this.#container)
+            
             render(this.#filmsListContainerTop, this.#filmsListTop.element)
             render(this.#filmsListContainerMost, this.#filmsListMost.element)
             render(this.#filmsListMost, this.#filmsContainer.element)
             render(this.#filmsListTop, this.#filmsContainer.element)
-
         }
-    }
-
-    #renderEmptyPage = () => {
-        console.log('isEmpty');
+        render(this.#filmsList, this.#filmsContainer.element)
+        render(this.#filmsContainer, this.#container)
     }
 
     #renderMoreFilms = () => {
