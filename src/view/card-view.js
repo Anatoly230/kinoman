@@ -1,4 +1,4 @@
-import { createElement } from "../render.js";
+import  AbstractView from '../framework/view/abstract-view.js';
 import { formatStringToYear, formatMinutsToTime } from "../utils.js";
 
 const createCardViewTemplate = (filmInfo, commentsLength) => {
@@ -31,9 +31,10 @@ const createCardViewTemplate = (filmInfo, commentsLength) => {
   `};
 
 
-export default class CardView {
-  #element = null;
+export default class CardView extends AbstractView{
+
   constructor(film) {
+    super()
     this.film = film.filmInfo;
     this.comments = film.comments;
   }
@@ -41,14 +42,4 @@ export default class CardView {
     return createCardViewTemplate(this.film, this.comments.length);
   }
 
-  get element() {
-    if (!this.#element) {
-      this.#element = createElement(this.template);
-    }
-    return this.#element;
-  }
-
-  removeElement() {
-    this.#element = null;
-  }
 }

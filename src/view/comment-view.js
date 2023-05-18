@@ -1,11 +1,8 @@
-
-
-
-import { createElement } from "../render.js";
+import AbstractView from '../framework/view/abstract-view.js';
 
 
 function getCommentTemplate(commentData) {
-    return `<li class="film-details__comment">
+  return `<li class="film-details__comment">
     <span class="film-details__comment-emoji">
       <img src="./images/emoji/${commentData.emotion}.png" width="55" height="55" alt="emoji-${commentData.emotion}">
     </span>
@@ -20,24 +17,14 @@ function getCommentTemplate(commentData) {
   </li>`;
 }
 
-export default class CommentView {
-    #commentData;
-    #element = null;
-    constructor(commentData) {
-        this.#commentData = commentData;
-    }
-    get template() {
-        return getCommentTemplate(this.#commentData);
-    }
+export default class CommentView extends AbstractView {
+  #commentData;
+  constructor(commentData) {
+    super();
+    this.#commentData = commentData;
+  }
+  get template() {
+    return getCommentTemplate(this.#commentData);
+  }
 
-    get element() {
-        if (!this.#element) {
-            this.#element = createElement(this.template);
-        }
-        return this.#element;
-    }
-
-    removeElement() {
-        this.#element = null;
-    }
 }

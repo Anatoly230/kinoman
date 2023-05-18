@@ -159,4 +159,19 @@ function getTrueOrFalse() {
   return getRandomNum(1, 0) ? true : false;
 }
 
-export { getTrueOrFalse, getRangeNumbers, arrayCopy, arrayScatter, detachFromArray, getRandomFloat, selectFromArray, getRandomNum, getObjects, getRandomDate, humanizeTaskDuedate, formatStringToYear, formatMinutsToTime };
+export {
+  getTrueOrFalse,
+  getRangeNumbers,
+  arrayCopy,
+  arrayScatter,
+  detachFromArray,
+  getRandomFloat,
+  selectFromArray,
+  getRandomNum,
+  getObjects,
+  getRandomDate,
+  humanizeTaskDuedate,
+  formatStringToYear,
+  formatMinutsToTime
+};
+

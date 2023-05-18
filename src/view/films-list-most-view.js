@@ -1,6 +1,4 @@
-
-import { createElement } from "../render.js";
-
+import AbstractView from '../framework/view/abstract-view.js';
 
 function getfilmsListMostTemplate() {
     return `<section class="films-list films-list--extra">
@@ -8,20 +6,8 @@ function getfilmsListMostTemplate() {
     </section>`;
 }
 
-export default class FilmslistMostView {
-    #element = null;
+export default class FilmslistMostView extends AbstractView {
     get template() {
         return getfilmsListMostTemplate();
-    }
-
-    get element() {
-        if (!this.#element) {
-            this.#element = createElement(this.template);
-        }
-        return this.#element;
-    }
-
-    removeElement() {
-        this.#element = null;
     }
 } 

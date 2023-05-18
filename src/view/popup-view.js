@@ -1,5 +1,4 @@
-import { createElement } from "../render.js"
-import CommentView from "./comment-view.js";
+import AbstractView from '../framework/view/abstract-view.js';
 import { formatMinutsToTime, humanizeTaskDuedate } from "../utils.js";
 
 
@@ -14,7 +13,6 @@ function getPopupTemplate(film, commentaries) {
     description
   } = film.filmInfo;
   const comments = commentaries;
-
 
   return `
     <section class="film-details">
@@ -130,25 +128,15 @@ function getPopupTemplate(film, commentaries) {
 }
 
 
-export default class Popup {
-  #element = null;
+export default class Popup extends AbstractView {
+
   constructor(filmInfo, comments) {
+    super()
     this.film = filmInfo;
     this.comments = comments;
   }
   get template() {
     return getPopupTemplate(this.film, this.comments);
-  }
-
-  get element() {
-    if (!this.#element) {
-      this.#element = createElement(this.template);
-    }
-    return this.#element;
-  }
-
-  removeElement() {
-    this.#element = null;
   }
 }
 

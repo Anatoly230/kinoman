@@ -1,4 +1,4 @@
-const FILM_COUNT = 1;
+const FILM_COUNT = 15;
 const FILM_COUNT_PER_STEP = 5;
 const COMMENTS_RANGE = 30;
 

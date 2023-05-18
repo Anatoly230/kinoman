@@ -3,7 +3,7 @@ const CopyPlugin = require("copy-webpack-plugin");
 
 module.exports = {
 
-  
+
   entry: path.resolve(__dirname, './src/main.js'),
   output: {
     filename: 'bundle.js',
@@ -18,11 +18,15 @@ module.exports = {
   ],
   module: {
     rules: [
-        {
-          test: /\.js$/,
-          exclude: /(node_modules)/,
-          use: ['babel-loader']
-        }
+      {
+        test: /\.js$/,
+        exclude: /(node_modules)/,
+        use: ['babel-loader']
+      },
+      {
+        test: /\.css$/i,
+        use: ['style-loader', 'css-loader']
+      }
     ]
   }
 };
