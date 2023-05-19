@@ -7,7 +7,7 @@ import { emotions } from './data/emotions.js';
 
 function getComment() {
   return {
-    author: `${selectFromArray(lastNames)} ${selectFromArray(names)} ${selectFromArray(patronymic)}`,
+    author: `${selectFromArray(names)} ${selectFromArray(lastNames)}`,
     comment: selectFromArray(comments),
     date: getRandomDate(),
     emotion: selectFromArray(emotions),

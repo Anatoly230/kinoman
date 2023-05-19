@@ -1,4 +1,5 @@
 import AbstractView from '../framework/view/abstract-view.js';
+import { humanizeTaskDuedate, getMaxStringLength } from '../utils.js';
 
 
 function getCommentTemplate(commentData) {
@@ -10,7 +11,7 @@ function getCommentTemplate(commentData) {
       <p class="film-details__comment-text">${commentData.comment}</p>
       <p class="film-details__comment-info">
         <span class="film-details__comment-author">${commentData.author}</span>
-        <span class="film-details__comment-day">${commentData.date}</span>
+        <span class="film-details__comment-day">${humanizeTaskDuedate(commentData.date)}</span>
         <button class="film-details__comment-delete">Delete</button>
       </p>
     </div>
@@ -19,7 +20,7 @@ function getCommentTemplate(commentData) {
 
 export default class CommentView extends AbstractView {
   #commentData;
-  constructor(commentData) {
+   constructor(commentData) {
     super();
     this.#commentData = commentData;
   }

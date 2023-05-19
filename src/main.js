@@ -4,7 +4,6 @@ import HeaderProfileInfo from './view/profile-info-view.js';
 import FooterStatistic from './view/footer-statistic-view.js';
 import FilmsModel from './service/movie.js';
 import CommentsModel from './service/comments-model.js';
-import { comments } from './service/data/comments.js';
 
 
 

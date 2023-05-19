@@ -152,14 +152,18 @@ function formatStringToYear(dueDate) {
 }
 
 function formatMinutsToTime(minuts) {
-  return `${Math.floor(minuts / 60)} час. ${minuts % 60} мин.`;
+  return `${Math.floor(minuts / 60)}ч  ${minuts % 60}м`;
 }
 
 function getTrueOrFalse() {
   return getRandomNum(1, 0) ? true : false;
 }
 
+const getMaxStringLength = (str, lngth = 140) => str.length >= lngth ? `${str.slice(0, lngth - 1)}...` : str;
+
+
 export {
+  getMaxStringLength,
   getTrueOrFalse,
   getRangeNumbers,
   arrayCopy,

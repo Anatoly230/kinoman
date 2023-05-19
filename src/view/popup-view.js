@@ -1,5 +1,6 @@
 import AbstractView from '../framework/view/abstract-view.js';
-import { formatMinutsToTime, humanizeTaskDuedate } from "../utils.js";
+import CommentView from './comment-view.js';
+import { formatMinutsToTime, humanizeTaskDuedate, getMaxStringLength } from "../utils.js";
 
 
 function getPopupTemplate(film, commentaries) {
@@ -72,7 +73,7 @@ function getPopupTemplate(film, commentaries) {
             </tr>
           </table>
 
-          <p class="film-details__film-description">${description}</p>
+          <p class="film-details__film-description">${getMaxStringLength(description)}</p>
         </div>
       </div>
 
@@ -88,7 +89,9 @@ function getPopupTemplate(film, commentaries) {
         <h3 class="film-details__comments-title">Comments <span class="film-details__comments-count">${comments.length}</span></h3>
 
         <ul class="film-details__comments-list">
-        
+        ${comments.reduce((str, comment) => {
+    return str += new CommentView(comment).template;
+  }, '')}
         </ul>
 
         <form class="film-details__new-comment" action="" method="get">
@@ -137,6 +140,14 @@ export default class Popup extends AbstractView {
   }
   get template() {
     return getPopupTemplate(this.film, this.comments);
+  }
+  setClickHandler(callback) {
+    this.callback.click = callback;
+    this.element.querySelector('.film-details__close-btn').addEventListener('click',this.#clickHandler);
+  }
+  #clickHandler = (evt) => {
+    evt.preventDefault();
+    this._callback.click();
   }
 }
 

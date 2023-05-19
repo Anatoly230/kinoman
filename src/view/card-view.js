@@ -1,5 +1,5 @@
 import AbstractView from '../framework/view/abstract-view.js';
-import { formatStringToYear, formatMinutsToTime } from "../utils.js";
+import { formatStringToYear, formatMinutsToTime, selectFromArray } from "../utils.js";
 
 const createCardViewTemplate = (filmInfo, commentsLength) => {
   const {
@@ -16,7 +16,7 @@ const createCardViewTemplate = (filmInfo, commentsLength) => {
       <p class="film-card__info">
         <span class="film-card__year">${formatStringToYear(release.date)}</span>
         <span class="film-card__duration">${formatMinutsToTime(runtime)}</span>
-        <span class="film-card__genre">${genre}</span>
+        <span class="film-card__genre">${selectFromArray(genre)}</span>
       </p>
       <img src="${poster}" alt="" class="film-card__poster">
       <p class="film-card__description">${description}</p>

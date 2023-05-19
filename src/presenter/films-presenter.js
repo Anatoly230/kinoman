@@ -71,10 +71,10 @@ export default class FilmsPresenter {
                 // this.#renderFilm(this.#films[i], this.#filmsListContainerTop)
             }
 
-            render(this.#filmsListContainerTop, this.#filmsListTop.element)
-            render(this.#filmsListContainerMost, this.#filmsListMost.element)
-            render(this.#filmsListMost, this.#filmsContainer.element)
-            render(this.#filmsListTop, this.#filmsContainer.element)
+            // render(this.#filmsListContainerTop, this.#filmsListTop.element)
+            // render(this.#filmsListContainerMost, this.#filmsListMost.element)
+            // render(this.#filmsListMost, this.#filmsContainer.element)
+            // render(this.#filmsListTop, this.#filmsContainer.element)
         }
         render(this.#filmsList, this.#filmsContainer.element)
         render(this.#filmsContainer, this.#container)
@@ -96,11 +96,7 @@ export default class FilmsPresenter {
         const comments = [...this.#commentsModel.get(film)];
         this.#filmDetailsComponent = new Popup(film, comments);
         const closeButtonFilmDetailsElement = this.#filmDetailsComponent.element.querySelector('.film-details__close-btn');
-        const filmDetailScommentsList = this.#filmDetailsComponent.element.querySelector('.film-details__comments-list');
         closeButtonFilmDetailsElement.addEventListener('click', this.#removeFilmDetailsComponent)
-        comments.forEach((comment) => {
-            render(new CommentView(comment), filmDetailScommentsList)
-        })
         render(this.#filmDetailsComponent, this.#container.parentElement)
         document.body.addEventListener('keydown', this.#onEscapeDown)
         document.body.classList.add('hide-overflow');
