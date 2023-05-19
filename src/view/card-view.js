@@ -1,4 +1,4 @@
-import  AbstractView from '../framework/view/abstract-view.js';
+import AbstractView from '../framework/view/abstract-view.js';
 import { formatStringToYear, formatMinutsToTime } from "../utils.js";
 
 const createCardViewTemplate = (filmInfo, commentsLength) => {
@@ -31,8 +31,7 @@ const createCardViewTemplate = (filmInfo, commentsLength) => {
   `};
 
 
-export default class CardView extends AbstractView{
-
+export default class CardView extends AbstractView {
   constructor(film) {
     super()
     this.film = film.filmInfo;
@@ -40,6 +39,16 @@ export default class CardView extends AbstractView{
   }
   get template() {
     return createCardViewTemplate(this.film, this.comments.length);
+  }
+
+  setFilmDetailsClickHandler(callback) {
+    this._callback.click = callback;
+    this.element.querySelector('.film-card__link').addEventListener('click', this.#clickHandler)
+  }
+  
+  #clickHandler = (evt) => {
+    evt.preventDefault();
+    this._callback.click();
   }
 
 }

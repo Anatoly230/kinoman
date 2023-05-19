@@ -46,13 +46,12 @@ export default class FilmsPresenter {
         render(this.#filmsListContainer, this.#filmsList.element)
         render(this.#navigation, this.#container)
         render(this.#filter, this.#container)
-        render(this.#filmsList, this.#filmsContainer.element)
-        render(this.#filmsContainer, this.#container)
         this.#renderFilmBoard()
     }
 
     #renderFilmBoard = () => {
         if (this.#films.length <= 0) {
+            console.log(this.#listEmptyView.element);
             render(this.#listEmptyView, this.#filmsList.element)
         } else {
 
@@ -62,7 +61,7 @@ export default class FilmsPresenter {
 
             if (this.#films.length > FILM_COUNT_PER_STEP) {
                 render(this.#buttonShowMoreView, this.#filmsList.element)
-                this.#buttonShowMoreView.element.addEventListener('click', this.#renderMoreFilms)
+                this.#buttonShowMoreView.setClickHandler(this.#renderMoreFilms)
             }
 
             for (let i = 0; i < 2; i++) {
@@ -71,13 +70,14 @@ export default class FilmsPresenter {
                 // console.log(this.#films[i].filmInfo);
                 // this.#renderFilm(this.#films[i], this.#filmsListContainerTop)
             }
-            
-            // render(this.#filmsListContainerTop, this.#filmsListTop.element)
-            // render(this.#filmsListContainerMost, this.#filmsListMost.element)
-            // render(this.#filmsListMost, this.#filmsContainer.element)
-            // render(this.#filmsListTop, this.#filmsContainer.element)
-        }
 
+            render(this.#filmsListContainerTop, this.#filmsListTop.element)
+            render(this.#filmsListContainerMost, this.#filmsListMost.element)
+            render(this.#filmsListMost, this.#filmsContainer.element)
+            render(this.#filmsListTop, this.#filmsContainer.element)
+        }
+        render(this.#filmsList, this.#filmsContainer.element)
+        render(this.#filmsContainer, this.#container)
     }
 
     #renderMoreFilms = () => {
@@ -108,10 +108,7 @@ export default class FilmsPresenter {
 
     #renderFilm(film, container) {
         const filmCardComponent = new CardView(film);
-        const linkfilmCardelement = filmCardComponent.element.querySelector('.film-card__link');
-        linkfilmCardelement.addEventListener('click', () => {
-            this.#renderFilmdetails(film)
-        })
+        filmCardComponent.setFilmDetailsClickHandler(() => this.#renderFilmdetails(film))
         render(filmCardComponent, container.element)
     }
 
@@ -128,7 +125,5 @@ export default class FilmsPresenter {
         this.#filmDetailsComponent.element.remove();
         this.#filmDetailsComponent = null;
     }
-
-
 
 }

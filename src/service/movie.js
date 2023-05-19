@@ -1,4 +1,12 @@
-import { getRandomFloat, getTrueOrFalse, getRangeNumbers, selectFromArray, getRandomNum, getObjects, getRandomDate } from '../utils.js';
+import {
+    getRandomFloat,
+    getTrueOrFalse,
+    getRangeNumbers,
+    selectFromArray,
+    getRandomNum,
+    getObjects,
+    getRandomDate
+} from '../utils.js';
 import { titles } from './data/titles.js';
 import { countries } from './data/countries.js'
 import { descriptions } from './data/descriptions.js'
@@ -8,7 +16,6 @@ import { directors } from './data/directors.js';
 import { writers } from './data/writers.js';
 import { genres } from './data/genres.js';
 import Randomizer from './logic/randomizer.js';
-
 import { FILM_COUNT, COMMENTS_RANGE } from '../const.js';
 
 const title = new Randomizer(titles);
