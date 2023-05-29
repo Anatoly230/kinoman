@@ -8,16 +8,18 @@ import FilmslistTopView from '../view/films-list-top-view.js';
 import FilmslistContainerView from '../view/films-list-container-view.js';
 import ButtonShowMoreView from '../view/button-show-more-view.js';
 import Popup from '../view/popup-view.js';
-import CommentView from '../view/comment-view.js';
 import { FILM_COUNT_PER_STEP } from '../const.js';
 import { render } from '../render.js';
 import ListEmptyView from '../view/list-empty-view.js';
+import { getUserStatus } from '../utils/users.js';
+
+
 
 
 export default class FilmsPresenter {
 
     #filter = new SortView();
-    #navigation = new NavigationView();
+    #navigation;
     #filmsContainer = new FilmsContainerView();
     #filmsList = new FilmslistView();
     #filmsListMost = new FilmslistMostView();
@@ -42,6 +44,7 @@ export default class FilmsPresenter {
         this.#filmsModel = filmsModel;
         this.#commentsModel = commentsModel;
         this.#films = [...filmsModel.get()];
+        this.#navigation = new NavigationView(this.#films);
 
         render(this.#filmsListContainer, this.#filmsList.element)
         render(this.#navigation, this.#container)

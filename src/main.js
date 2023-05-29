@@ -4,6 +4,7 @@ import HeaderProfileInfo from './view/profile-info-view.js';
 import FooterStatistic from './view/footer-statistic-view.js';
 import FilmsModel from './service/movie.js';
 import CommentsModel from './service/comments-model.js';
+import { filter } from './utils/filter.js';
 
 
 
@@ -18,9 +19,8 @@ const commentsModel = new CommentsModel(filmsModel.get());
 
 const filmsPresenter = new FilmsPresenter();
 
-
-render(new HeaderProfileInfo(), pageHeader);
-render(new FooterStatistic(), footeStatistics);
+render(new HeaderProfileInfo(filmsModel.get()), pageHeader);
+render(new FooterStatistic(filmsModel.get()), footeStatistics);
 filmsPresenter.init(pageBody, filmsModel, commentsModel)
 
 

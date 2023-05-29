@@ -26,6 +26,17 @@ const director = new Randomizer(directors);
 const writer = new Randomizer(writers);
 const genre = new Randomizer(genres);
 
+function getUserDetails() {
+    const alreadyWatched = getTrueOrFalse();
+
+    return {
+        watchlist: getTrueOrFalse(),
+        alreadyWatched,
+        watchingDate: (alreadyWatched) ? getRandomDate() : null,
+        favorite: getTrueOrFalse()
+    }
+}
+
 function getFilmInfo() {
     return {
         'title': title.getElement(),
@@ -48,37 +59,17 @@ function getFilmInfo() {
 }
 
 const generateFilm = () => {
-
-    const film = {
+    return {
         'id': null,
         'comments': Array.from({ length: getRandomNum(COMMENTS_RANGE, 0) }, getRandomNum),
         'filmInfo': getFilmInfo(),
-        'userDetails': {
-            'watchlist': getTrueOrFalse(),
-            'alreadyWatched': getRandomNum(1, 0),
-            'watchingDate': this,
-            'favorite': getTrueOrFalse()
-        }
+        'userDetails': getUserDetails()
     }
-
-    if (film.userDetails.alreadyWatched) {
-        film.userDetails.watchingDate = getRandomDate()
-    } else {
-        film.userDetails.watchingDate = null;
-    }
-
-    if (film.userDetails.favorite) {
-        film.userDetails.alreadyWatched = 1;
-        film.userDetails.watchingDate = getRandomDate()
-    }
-
-    return film;
 }
 
 function generateFilms() {
     const films = Array.from({ length: FILM_COUNT }, generateFilm);
     films.forEach(function (item, index) {
-        console.log(item.userDetails);
         item.id = index + 1;
     })
     return films;
