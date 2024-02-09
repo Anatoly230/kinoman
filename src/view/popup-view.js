@@ -14,8 +14,7 @@ function getPopupTemplate(film, commentaries) {
     actors,
     description
   } = film.filmInfo;
-  const comments = commentaries;
-
+  const comments = commentaries.get(film);
   return `
     <section class="film-details">
   <div class="film-details__inner">
