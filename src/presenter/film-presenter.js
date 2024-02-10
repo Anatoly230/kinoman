@@ -10,6 +10,9 @@ export default class FilmPresenter {
     #film = null;
     #comment = null;
     #filmCard = null;
+    #filmDetals = null;
+
+    #pageBody = document.querySelector('body')
     constructor(filmsList) {
         this.#filmsList = filmsList.element;
     }
@@ -17,14 +20,25 @@ export default class FilmPresenter {
         this.#film = film;
         this.#comment = comments;
         this.#filmCard = new FilmCardView(this.#film);
+        this.#genFilmDetails();
+        this.#filmCard.setOnLinkToFullSize(this.#renderFilmDetails)
     }
 
-    renderCard() {
+    renderCard = () => {
         this.#genFilmDetails()
         render(this.#filmCard, this.#filmsList)
     }
-    #genFilmDetails(){
-     console.log('#genFilmDetails');   
+    #genFilmDetails = () => {
+        if (this.#filmDetals) {
+            console.log('popup');
+            return;
+        }
+        console.log('no popup');
+        this.#filmDetals = new Popup(this.#film, this.#comment);
+    }
+    #renderFilmDetails = () => {
+        this.#genFilmDetails();
+        render(this.#filmDetals, this.#pageBody)
     }
 }
 
