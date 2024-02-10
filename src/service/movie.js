@@ -5,7 +5,8 @@ import {
     selectFromArray,
     getRandomNum,
     getObjects,
-    getRandomDate
+    getRandomDate,
+    getMaxStringLength
 } from '../utils.js';
 import { titles } from './data/titles.js';
 import { countries } from './data/countries.js'
@@ -54,7 +55,7 @@ function getFilmInfo() {
         },
         'runtime': getRandomNum(120, 60),
         'genre': Array.from({ length: getRandomNum(3, 1) }, genre.getElement),
-        'description': description.getElement()
+        'description': getMaxStringLength(description.getElement())
     }
 }
 
