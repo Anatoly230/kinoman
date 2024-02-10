@@ -1,5 +1,4 @@
 import CardView from '../view/card-view.js';
-// import FilmPresenter from './film-presenter.js';
 import SortView from '../view/sort-view.js';
 import NavigationView from '../view/navigation-view.js';
 import FilmsContainerView from '../view/films-container-view.js';
@@ -10,14 +9,14 @@ import FilmslistContainerView from '../view/films-list-container-view.js';
 import ButtonShowMoreView from '../view/button-show-more-view.js';
 import Popup from '../view/popup-view.js';
 import { FILM_COUNT_PER_STEP } from '../const.js';
-import { render } from '../framework/render.js';
+import { render } from '../render.js';
 import ListEmptyView from '../view/list-empty-view.js';
 import { getUserStatus } from '../utils/users.js';
 
 
 
 
-export default class FilmsListPresenter {
+export default class FilmsPresenter {
 
     #filter = new SortView();
     #navigation;
@@ -30,7 +29,7 @@ export default class FilmsListPresenter {
     #filmsListContainerTop = new FilmslistContainerView();
     #buttonShowMoreView = new ButtonShowMoreView();
     #listEmptyView = new ListEmptyView();
-    #filmDetailsComponent = null;
+    #filmDetailsComponent;
     #container;
     #filmsModel;
     #commentsModel;
@@ -52,8 +51,10 @@ export default class FilmsListPresenter {
         render(this.#filter, this.#container)
         this.#renderFilmBoard()
     }
+
     #renderFilmBoard = () => {
         if (this.#films.length <= 0) {
+            console.log(this.#listEmptyView.element);
             render(this.#listEmptyView, this.#filmsList.element)
         } else {
 
@@ -96,25 +97,32 @@ export default class FilmsListPresenter {
 
     #renderFilmdetails(film) {
         const comments = [...this.#commentsModel.get(film)];
-        if (this.#filmDetailsComponent !== null) {
-            this.#removeFilmDetailsComponent();
-        }
         this.#filmDetailsComponent = new Popup(film, comments);
-        this.#filmDetailsComponent.setOnClickCloseBtn(this.#removeFilmDetailsComponent);
-        this.#filmDetailsComponent.setOnEscapeDown(this.#removeFilmDetailsComponent);
+        const closeButtonFilmDetailsElement = this.#filmDetailsComponent.element.querySelector('.film-details__close-btn');
+        closeButtonFilmDetailsElement.addEventListener('click', this.#removeFilmDetailsComponent)
         render(this.#filmDetailsComponent, this.#container.parentElement)
+        document.body.addEventListener('keydown', this.#onEscapeDown)
+        document.body.classList.add('hide-overflow');
     }
 
     #renderFilm(film, container) {
         const filmCardComponent = new CardView(film);
-        filmCardComponent.setOnLinkToFullSize(() => this.#renderFilmdetails(film))
+        filmCardComponent.setFilmDetailsClickHandler(() => this.#renderFilmdetails(film))
         render(filmCardComponent, container.element)
     }
 
+    #onEscapeDown = (e) => {
+        if (e.key === 'Escape') {
+            e.preventDefault();
+            this.#removeFilmDetailsComponent();
+        }
+    }
+
     #removeFilmDetailsComponent = () => {
-        console.log(this.#filmDetailsComponent);
+        document.body.classList.remove('hide-overflow');
+        document.body.removeEventListener('keydown', this.#onEscapeDown)
         this.#filmDetailsComponent.element.remove();
-        this.#filmDetailsComponent.removeElement();
+        this.#filmDetailsComponent = null;
     }
 
 }

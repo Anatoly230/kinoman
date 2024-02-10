@@ -1,8 +1,6 @@
 import AbstractView from '../framework/view/abstract-view.js';
 import { formatStringToYear, formatMinutsToTime, selectFromArray } from "../utils.js";
 
-const linkToFullSize = '.film-card__link';
-
 const createCardViewTemplate = (filmInfo, commentsLength) => {
   const {
     title, totalRating,
@@ -43,14 +41,14 @@ export default class CardView extends AbstractView {
     return createCardViewTemplate(this.film, this.comments.length);
   }
 
-  setOnLinkToFullSize(callback) {
-    this._callback.clickOnLinkToFullSize = callback;
-    this.element.querySelector(linkToFullSize).addEventListener('click', this.#OnClickLinkToFullSize)
+  setFilmDetailsClickHandler(callback) {
+    this._callback.click = callback;
+    this.element.querySelector('.film-card__link').addEventListener('click', this.#clickHandler)
   }
-
-  #OnClickLinkToFullSize = (evt) => {
+  
+  #clickHandler = (evt) => {
     evt.preventDefault();
-    this._callback.clickOnLinkToFullSize();
+    this._callback.click();
   }
 
 }

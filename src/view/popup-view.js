@@ -2,7 +2,6 @@ import AbstractView from '../framework/view/abstract-view.js';
 import CommentView from './comment-view.js';
 import { formatMinutsToTime, humanizeTaskDuedate, getMaxStringLength } from "../utils.js";
 
-const closeBtn = '.film-details__close-btn';
 
 function getPopupTemplate(film, commentaries) {
   const {
@@ -138,44 +137,17 @@ export default class Popup extends AbstractView {
     super()
     this.film = filmInfo;
     this.comments = comments;
-    this.#bringUp();
   }
   get template() {
     return getPopupTemplate(this.film, this.comments);
   }
-
-  setOnClickCloseBtn(callback) {
-    this._callback.clickOnClose = callback;
-    this.element.querySelector(closeBtn).addEventListener('click', this.#onClickCloseBtn);
+  setClickHandler(callback) {
+    this.callback.click = callback;
+    this.element.querySelector('.film-details__close-btn').addEventListener('click',this.#clickHandler);
   }
-  setOnEscapeDown(callback) {
-    this._callback.keyDownEscape = callback;
-  }
-
-  exit = () => {
-    this.#bringUp();
-  }
-  #onClickCloseBtn = (evt) => {
+  #clickHandler = (evt) => {
     evt.preventDefault();
-    this._callback.clickOnClose();
+    this._callback.click();
   }
-  #bringUp = () => {
-    document.body.addEventListener('keydown', this.#onEscapeDown)
-    document.body.classList.add('hide-overflow');
-  }
-
-  #bringDown = () => {
-    document.body.classList.remove('hide-overflow');
-    document.body.removeEventListener('keydown', this.#onEscapeDown)
-  }
-
-  #onEscapeDown = (e) => {
-    if (e.key === 'Escape') {
-      e.preventDefault();
-      this._callback.keyDownEscape();
-      this.#bringDown();
-    }
-  }
-
 }
 
