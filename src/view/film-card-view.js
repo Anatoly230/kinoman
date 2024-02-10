@@ -1,20 +1,15 @@
 import AbstractView from '../framework/view/abstract-view.js';
-import {filmCardInfoTemplate} from './film-card-info-template.js'
-import {filmCardControlsTemplate} from './film-card-controls-template.js'
+import { filmCardInfoTemplate } from './film-card-info-template.js'
+import { filmCardControlsTemplate } from './film-card-controls-template.js'
 
 
 const linkToFullSize = '.film-card__link';
 
-const createCardViewTemplate = (filmInfo, commentsLength) => {
-  const {
-    title, totalRating,
-    release, runtime,
-    genre, poster,
-    description
-  } = filmInfo;
+const createCardViewTemplate = ({filmInfo, comments}) => {
+
   return `
     <article class="film-card">
-    ${filmCardInfoTemplate(filmInfo, commentsLength)} 
+    ${filmCardInfoTemplate(filmInfo, comments.length)} 
     ${filmCardControlsTemplate()} 
   </article>
   `};
@@ -23,11 +18,11 @@ const createCardViewTemplate = (filmInfo, commentsLength) => {
 export default class FilmCardView extends AbstractView {
   constructor(film) {
     super()
-    this.film = film.filmInfo;
-    this.comments = film.comments;
+    this.film = film
+    console.log('cardview ok');
   }
   get template() {
-    return createCardViewTemplate(this.film, this.comments.length);
+    return createCardViewTemplate(this.film);
   }
 
   setOnLinkToFullSize(callback) {
