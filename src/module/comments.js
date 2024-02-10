@@ -1,7 +1,7 @@
 import { selectFromArray, getRandomDate, getRandomNum, detachFromArray } from '../utils.js';
-import { comments } from './data/comments.js';
-import { lastNames, names, patronymic } from './data/authors.js';
-import { emotions } from './data/emotions.js';
+import { comments } from '../service/data/comments.js';
+import { lastNames, names, patronymic } from '../service/data/authors.js';
+import { emotions } from '../service/data/emotions.js';
 
 
 
@@ -30,7 +30,7 @@ function getBoundariesOfComments(films) {
 export default function generateComments(films) {
   const commentCount = getCommentCount(films);
   let ids = getBoundariesOfComments(films);
-  return Array.from({ length: commentCount }, (_value, index) => {
+  return Array.from({ length: commentCount }, (_value) => {
     const comment = getComment();
     return {
       id: detachFromArray(ids),
@@ -39,15 +39,4 @@ export default function generateComments(films) {
 
   })
 }
-// export default function generateComments(films) {
-//   const commentCount = getCommentCount(films);
-//   return Array.from({ length: commentCount }, (_value, index) => {
-//     const comment = getComment();
-//     return {
-//       id: index + 1,
-//       ...comment,
-//     }
-
-//   })
-// }
 

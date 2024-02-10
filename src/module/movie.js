@@ -8,15 +8,15 @@ import {
     getRandomDate,
     getMaxStringLength
 } from '../utils.js';
-import { titles } from './data/titles.js';
-import { countries } from './data/countries.js'
-import { descriptions } from './data/descriptions.js'
-import { getFilmPath } from './data/images.js';
-import { actors } from './data/actors.js';
-import { directors } from './data/directors.js';
-import { writers } from './data/writers.js';
-import { genres } from './data/genres.js';
-import Randomizer from './logic/randomizer.js';
+import { titles } from '../service/data/titles.js';
+import { countries } from '../service/data/countries.js'
+import { descriptions } from '../service/data/descriptions.js'
+import { getFilmPath } from '../service/data/images.js';
+import { actors } from '../service/data/actors.js';
+import { directors } from '../service/data/directors.js';
+import { writers } from '../service/data/writers.js';
+import { genres } from '../service/data/genres.js';
+import Randomizer from '../service/logic/randomizer.js';
 import { FILM_COUNT, COMMENTS_RANGE } from '../const.js';
 
 const title = new Randomizer(titles);

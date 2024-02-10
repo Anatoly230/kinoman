@@ -6,9 +6,3 @@ export function generateFilter(films) {
         filteredFilms: filterFilms(films).length,
     }))
 }
-
-// export function getFilteredItems(films, filterName) {
-//     return generateFilter(films)
-//         .find((item) => item.name == filterName)
-//         .filteredFilms
-// }
