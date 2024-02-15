@@ -6,7 +6,7 @@ function getButtonTemplate() {
     return `<button class="films-list__show-more">Show more</button>`;
 }
 
-export default class ButtonShowMoreView extends AbstractView {
+export default class FilmButtonMoreView extends AbstractView {
     get template() {
         return getButtonTemplate();
     }

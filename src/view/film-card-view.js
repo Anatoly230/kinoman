@@ -25,12 +25,12 @@ export default class FilmCardView extends AbstractView {
     return createCardViewTemplate(this.film);
   }
 
-  setOnLinkToFullSize(callback) {
+  setCardClickHandler(callback) {
     this._callback.clickOnLinkToFullSize = callback;
-    this.element.querySelector(linkToFullSize).addEventListener('click', this.#OnClickLinkToFullSize)
+    this.element.querySelector(linkToFullSize).addEventListener('click', this.#cardClickHandler)
   }
 
-  #OnClickLinkToFullSize = (evt) => {
+  #cardClickHandler = (evt) => {
     evt.preventDefault();
     this._callback.clickOnLinkToFullSize();
   }

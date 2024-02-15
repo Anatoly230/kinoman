@@ -131,11 +131,11 @@ function getPopupTemplate(film, commentaries) {
 }
 
 
-export default class Popup extends AbstractView {
+export default class FilmDetailsView extends AbstractView {
 
-  constructor(filmInfo, comments) {
+  constructor(film, comments) {
     super()
-    this.film = filmInfo;
+    this.film = film;
     this.comments = comments;
     this.#bringUp();
   }
@@ -143,38 +143,37 @@ export default class Popup extends AbstractView {
     return getPopupTemplate(this.film, this.comments);
   }
 
-  setOnClickCloseBtn(callback) {
+  setCloseBtnClickHandler(callback) {
     this._callback.clickOnClose = callback;
-    this.element.querySelector(closeBtn).addEventListener('click', this.#onClickCloseBtn);
+    this.element.querySelector(closeBtn).addEventListener('click', this.#closeBtnClickHandler);
   }
-  setOnEscapeDown(callback) {
+  setEscapeDownHandler(callback) {
     this._callback.keyDownEscape = callback;
   }
 
-  exit = () => {
-    this.#bringUp();
-  }
-  #onClickCloseBtn = (evt) => {
+  #closeBtnClickHandler = (evt) => {
     evt.preventDefault();
     this._callback.clickOnClose();
+    this.#bringDown()
   }
   #bringUp = () => {
-    document.body.addEventListener('keydown', this.#onEscapeDown)
+    document.body.addEventListener('keydown', this.#escapeDownHandler)
     document.body.classList.add('hide-overflow');
   }
 
   #bringDown = () => {
     document.body.classList.remove('hide-overflow');
-    document.body.removeEventListener('keydown', this.#onEscapeDown)
+    document.body.removeEventListener('keydown', this.#escapeDownHandler)
   }
 
-  #onEscapeDown = (e) => {
+  #escapeDownHandler = (e) => {
     if (e.key === 'Escape') {
       e.preventDefault();
       this._callback.keyDownEscape();
       this.#bringDown();
     }
   }
+
 
 }
 

@@ -1,46 +1,48 @@
-import { render } from "../framework/render.js";
-import Popup from "../view/popup-view.js";
+import { render, replace, remove } from "../framework/render.js";
+import FilmDetailsView from "../view/film-details-view.js";
 import FilmCardView from "../view/film-card-view.js";
-
-
-console.log('start');
 
 export default class FilmPresenter {
     #filmsList = null;
+    #changeData = null;
+    #clickCardHandler = null;
+    #escKeyDownHandler = null;
+    #filmCardCompenent = null;
     #film = null;
-    #comment = null;
-    #filmCard = null;
-    #filmDetals = null;
 
-    #pageBody = document.querySelector('body')
-    constructor(filmsList) {
-        this.#filmsList = filmsList.element;
+    constructor(filmsList, changeData, clickCardHandler, escKeyDowHandler) {
+        this.#filmsList = filmsList;
+        this.#changeData = changeData;
+        this.#clickCardHandler = clickCardHandler;
+        this.#escKeyDownHandler = escKeyDowHandler;
     }
-    init = (film, comments) => {
+
+    init = (film) => {
         this.#film = film;
-        this.#comment = comments;
-        this.#filmCard = new FilmCardView(this.#film);
-        this.#genFilmDetails();
-        this.#filmCard.setOnLinkToFullSize(this.#renderFilmDetails)
-    }
+        const prevFilmCardComponent = this.#filmCardCompenent;
 
-    renderCard = () => {
-        this.#genFilmDetails()
-        render(this.#filmCard, this.#filmsList)
-    }
-    #genFilmDetails = () => {
-        if (this.#filmDetals) {
-            console.log('popup');
-            return;
+        this.#filmCardCompenent = new FilmCardView(this.#film);
+
+        this.#filmCardCompenent.setCardClickHandler(() => {
+            this.#clickCardHandler(this.#film);
+            document.addEventListener('keydown', this.#escKeyDownHandler);
+        })
+        //назначение компоненту обработчиков для других кнопок карточки
+        
+        if (prevFilmCardComponent === null) {
+            render(this.#filmCardCompenent, this.#filmsList.element)
         }
-        console.log('no popup');
-        this.#filmDetals = new Popup(this.#film, this.#comment);
+        replace(this.#filmCardCompenent, prevFilmCardComponent);
+        remove(prevFilmCardComponent);
     }
-    #renderFilmDetails = () => {
-        this.#genFilmDetails();
-        render(this.#filmDetals, this.#pageBody)
+    destroy = () => {
+        remove(this.#filmCardCompenent);
     }
+    
+    //приватные обработчики для других кнопок карточки
+
 }
+
 
 // const films = [];
 // function renderFilms() {
@@ -60,7 +62,7 @@ export default class FilmPresenter {
 // filmcard.setOnLinkToFullSize(clickTest)
 
 // const filmDetailsGenerate = (film, comments) => {
-//     const filmDetails = new Popup(film, comments)
+//     const filmDetails = new FilmDetails(film, comments)
 //     render(filmDetails, pageBody)
 // }
 
