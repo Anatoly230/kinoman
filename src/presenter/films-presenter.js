@@ -111,9 +111,10 @@ export default class FilmsPresenter {
     }
 
     #renderFilmBoard = () => {
-        if(this.#films.length === 0){
+        if (this.#films.length === 0) {
             render(new FilmListEmptyView(), this.#container)
         }
-        
-     }
+
+    }
 }
+

@@ -1,5 +1,5 @@
 import HeaderProfileInfo from './view/profile-info-view.js';
-//здесь должен быть фильтрВью
+//здесь должен быть фильтр
 import FooterStatistic from './view/footer-statistic-view.js';
 
 
@@ -8,6 +8,7 @@ import FilmsModel from './module/movie.js';
 import CommentsModel from './module/comments-model.js';
 
 import { render } from './framework/render.js';
+import AbstractView from './framework/view/abstract-view.js';
 
 // import { filter } from './utils/filter.js'; разобраться что это
 

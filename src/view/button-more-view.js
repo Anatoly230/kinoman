@@ -1,4 +1,3 @@
-// import { createElement } from "../render.js";
 import AbstractView from '../framework/view/abstract-view.js';
 
 
@@ -19,3 +18,4 @@ export default class FilmButtonMoreView extends AbstractView {
         this._callback.click()
     }
 } 
+    

@@ -23,11 +23,13 @@ export default class FilmDetailsPresenter {
         this.#comments = comments;
 
         const prevFilmDetailsComponent = this.#filmDetailsComponent;
+        this.#filmDetailsComponent = new FilmDetailsView(this.#film, this.#comments);
 
         this.#filmDetailsComponent.setCloseBtnClickHandler(() => {
             this.#closeBtnClickHandler();
             document.removeEventListener('keydown', this.#escKeyDownHandler)
         })
+        this.#filmDetailsComponent.setWatchListBtnClickHandler()
 
         //назначение компоненту обработчиков для других кнопок карточки
 
@@ -35,7 +37,9 @@ export default class FilmDetailsPresenter {
             render(this.#filmDetailsComponent, this.#container)
             return;
         }
-
+        this.#filmDetailsComponent.setWatchListBtnClickHendler(this.#watchListBtnClickHandler);
+        this.#filmDetailsComponent.setWatchedBtnClickHendler(this.#watchedBtnClickHandler);
+        this.#filmDetailsComponent.setFavoriteBtnClickHendler(this.#favoriteBtnClickHendler);
         replace(this.#filmDetailsComponent, prevFilmDetailsComponent);
 
         remove(prevFilmDetailsComponent);
@@ -44,4 +48,32 @@ export default class FilmDetailsPresenter {
     destroy = () => {
         remove(this.#filmDetailsComponent)
     }
+    #watchListBtnClickHandler = () => {
+        this.#changeData({
+            ...this.#film,
+            userDetails: {
+                ...this.#film.userDetails,
+                watchList: !this.#film.userDetails.watchlist
+            },
+        })
+    };
+    #watchedBtnClickHandler = () => {
+        this.#changeData({
+            ...this.#film,
+            userDetails: {
+                ...this.#film.userDetails,
+                favorite: !this.#film.userDetails.favorite
+            }
+        })
+    };
+    #favoriteBtnClickHendler = () => {
+        this.#changeData({
+            ...this.#film,
+            userDetails: {
+                ...this.#film.userDetails,
+                favorite: !this.#film.userDetails.favorite
+            }
+        })
+    }
+
 }
