@@ -2,8 +2,6 @@ import AbstractView from '../framework/view/abstract-view.js';
 import CommentView from './comment-view.js';
 import { formatMinutsToTime, humanizeTaskDuedate, getMaxStringLength } from "../utils.js";
 
-const closeBtn = '.film-details__close-btn';
-
 function getPopupTemplate(film, commentaries) {
   const {
     title, totalRating,
@@ -137,7 +135,6 @@ export default class FilmDetailsView extends AbstractView {
     super()
     this.film = film;
     this.comments = comments;
-    this.#bringUp();
   }
   get template() {
     return getPopupTemplate(this.film, this.comments);
@@ -145,8 +142,30 @@ export default class FilmDetailsView extends AbstractView {
 
   setCloseBtnClickHandler(callback) {
     this._callback.clickOnClose = callback;
-    this.element.querySelector(closeBtn).addEventListener('click', this.#closeBtnClickHandler);
+    this.element.querySelector('.film-details__close-btn').addEventListener('click', this.#closeBtnClickHandler);
   }
+  setWatchlistBtnClickHendler(callback) {
+    this._callback.wWatchlistBtnClick = callback;
+    this.element
+      .querySelector('.film-details__control-button--watchlist')
+      .addEventListener('click', this.#wachListBtnClickHandler);
+  }
+
+  setWatchedBtnClickHendler(callback) {
+    this._callback.watchedtBtnClick = callback;
+    this.element
+      .querySelector('.film-details__control-button--watched')
+      .addEventListener('click', this.#wachedtBtnClickHandler);
+  }
+
+  setFavoriteBtnClickHendler(callback) {
+    this._callback.favoriteBtnClick = callback;
+    this.element
+      .querySelector('.film-details__control-button--favorite')
+      .addEventListener('click', this.#favoriteBtnClickHandler);
+  }
+
+
   setEscapeDownHandler(callback) {
     this._callback.keyDownEscape = callback;
   }
@@ -154,26 +173,18 @@ export default class FilmDetailsView extends AbstractView {
   #closeBtnClickHandler = (evt) => {
     evt.preventDefault();
     this._callback.clickOnClose();
-    this.#bringDown()
   }
-  #bringUp = () => {
-    document.body.addEventListener('keydown', this.#escapeDownHandler)
-    document.body.classList.add('hide-overflow');
+  #wachListBtnClickHandler = (evt) => {
+    evt.preventDefault();
+    this._callback.watchlistBtnClick();
   }
-
-  #bringDown = () => {
-    document.body.classList.remove('hide-overflow');
-    document.body.removeEventListener('keydown', this.#escapeDownHandler)
+  #wachedtBtnClickHandler = (evt) => {
+    evt.preventDefault();
+    this._callback.watchLedBtnClick();
   }
-
-  #escapeDownHandler = (e) => {
-    if (e.key === 'Escape') {
-      e.preventDefault();
-      this._callback.keyDownEscape();
-      this.#bringDown();
-    }
+  #favoriteBtnClickHandler = (evt) => {
+    evt.preventDefault();
+    this._callback.favoriteBtnClick();
   }
-
-
 }
 

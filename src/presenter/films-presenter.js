@@ -1,5 +1,5 @@
 import SortView from "../view/sort-view.js";
-import FilmsContainerView from "../view/films-container-view.js";
+import FilmsView from "../view/films-container-view.js";
 import FilmslistView from "../view/films-list-view.js";
 import FilmListEmptyView from "../view/list-empty-view.js";
 import FilmslistContainerView from "../view/films-list-container-view.js";
@@ -9,16 +9,17 @@ import FilmPresenter from "./film-presenter.js";
 import FilmDetailsPresenter from "./film-details-presenter.js";
 
 import { render } from "../framework/render.js";
-//здесь должна быть функция обмена данными
+import { updateItem } from "../utils/common.js";
 import { FILM_COUNT_PER_STEP } from "../const.js";
 
 
 export default class FilmsPresenter {
     #sortComponent = null;
-    #filmsComponent = new FilmsContainerView();
+    #filmsComponent = new FilmsView();
     #filmListComponent = new FilmslistView();
     #filmListContainerComponent = new FilmslistContainerView();
     #filmMoreButtonComponent = new FilmButtonMoreView();
+
     #container = null;
     #filmsModel = null;
     #commentsModel = null;
@@ -29,6 +30,7 @@ export default class FilmsPresenter {
 
     #filmPresenter = new Map();
     #filmDetailsPresenter = null;
+
     #renderFilmsCount = FILM_COUNT_PER_STEP;
 
     constructor(container, filmsModel, commentsModel) {
@@ -40,7 +42,15 @@ export default class FilmsPresenter {
     init = () => {
         this.#films = [...this.#filmsModel.get()]
         this.#renderFilmBoard()
-    }
+    };
+
+    #filmChangeHandler = (updatedFilm) => {
+        this.#films = updateItem(this.#films, updatedFilm);
+        this.#filmPresenter.get(updatedFilm.id).init(updatedFilm);
+        // остановился здесь
+        
+        // остановился здесь
+    };
 
     #renderFilmListContainer(container) {
         render(this.#filmsComponent, container);
@@ -61,7 +71,7 @@ export default class FilmsPresenter {
     #renderFilm(film, container) {
         const filmPresenter = new FilmPresenter(
             container,
-            this.#filmChangeHandler,
+            // this.#filmChangeHandler,
             this.#addfilmDetailsComponent,
             this.#escKeyDownHandler
         );
@@ -73,7 +83,7 @@ export default class FilmsPresenter {
         if (!this.#filmDetailsPresenter) {
             this.#filmDetailsPresenter = new FilmDetailsPresenter(
                 this.#container.parentNode,
-                this.#filmChangeHandler,
+                // this.#filmChangeHandler,
                 this.#removeFilmDetailsComponent,
                 this.#escKeyDownHandler
             )
@@ -92,10 +102,6 @@ export default class FilmsPresenter {
         this.#filmDetailsPresenter = null;
         this.#selectedFilm = null;
         document.body.classList.remove('hide-overflow')
-    }
-
-    #filmChangeHandler = () => {
-        console.log('change film');
     }
 
     #addfilmDetailsComponent = (film) => {

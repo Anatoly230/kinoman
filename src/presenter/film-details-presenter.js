@@ -29,34 +29,36 @@ export default class FilmDetailsPresenter {
             this.#closeBtnClickHandler();
             document.removeEventListener('keydown', this.#escKeyDownHandler)
         })
-        this.#filmDetailsComponent.setWatchListBtnClickHandler()
-
-        //назначение компоненту обработчиков для других кнопок карточки
+        this.#filmDetailsComponent.setWatchlistBtnClickHandler(this.#watchlistBtnClickHandler);
+        this.#filmDetailsComponent.setWatchedBtnClickHandler(this.#watchedBtnClickHandler);
+        this.#filmDetailsComponent.setFavoriteBtnClickHandler(this.#favoriteBtnClickHendler);
 
         if (prevFilmDetailsComponent === null) {
             render(this.#filmDetailsComponent, this.#container)
             return;
         }
-        this.#filmDetailsComponent.setWatchListBtnClickHendler(this.#watchListBtnClickHandler);
-        this.#filmDetailsComponent.setWatchedBtnClickHendler(this.#watchedBtnClickHandler);
-        this.#filmDetailsComponent.setFavoriteBtnClickHendler(this.#favoriteBtnClickHendler);
         replace(this.#filmDetailsComponent, prevFilmDetailsComponent);
 
+        if (prevFilmDetailsComponent === null) {
+            render(this.#filmDetailsComponent, this.#container)
+            return;
+        }
+        replace(this.#filmDetailsComponent, prevFilmDetailsComponent);
         remove(prevFilmDetailsComponent);
     }
 
     destroy = () => {
         remove(this.#filmDetailsComponent)
     }
-    #watchListBtnClickHandler = () => {
+    #watchlistBtnClickHandler = () => {
         this.#changeData({
             ...this.#film,
             userDetails: {
                 ...this.#film.userDetails,
-                watchList: !this.#film.userDetails.watchlist
+                watchlist: !this.#film.userDetails.watchlist
             },
         })
-    };
+    }
     #watchedBtnClickHandler = () => {
         this.#changeData({
             ...this.#film,
@@ -65,7 +67,7 @@ export default class FilmDetailsPresenter {
                 favorite: !this.#film.userDetails.favorite
             }
         })
-    };
+    }
     #favoriteBtnClickHendler = () => {
         this.#changeData({
             ...this.#film,

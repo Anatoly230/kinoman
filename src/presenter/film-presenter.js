@@ -1,17 +1,19 @@
 import { render, replace, remove } from "../framework/render.js";
-import FilmDetailsView from "../view/film-details-view.js";
 import FilmCardView from "../view/film-card-view.js";
 
 export default class FilmPresenter {
-    #filmsList = null;
+    #container = null;
+
     #changeData = null;
     #clickCardHandler = null;
     #escKeyDownHandler = null;
-    #filmCardCompenent = null;
+
+    #filmCardComponent = null;
+
     #film = null;
 
-    constructor(filmsList, changeData, clickCardHandler, escKeyDowHandler) {
-        this.#filmsList = filmsList;
+    constructor(container, changeData, clickCardHandler, escKeyDowHandler) {
+        this.#container = container;
         this.#changeData = changeData;
         this.#clickCardHandler = clickCardHandler;
         this.#escKeyDownHandler = escKeyDowHandler;
@@ -19,54 +21,54 @@ export default class FilmPresenter {
 
     init = (film) => {
         this.#film = film;
-        const prevFilmCardComponent = this.#filmCardCompenent;
+        const prevFilmCardComponent = this.#filmCardComponent;
 
-        this.#filmCardCompenent = new FilmCardView(this.#film);
+        this.#filmCardComponent = new FilmCardView(this.#film);
 
-        this.#filmCardCompenent.setCardClickHandler(() => {
+        this.#filmCardComponent.setCardClickHandler(() => {
             this.#clickCardHandler(this.#film);
             document.addEventListener('keydown', this.#escKeyDownHandler);
         })
-        //назначение компоненту обработчиков для других кнопок карточки
-        
+
+        this.#filmCardComponent.setWatchlistBtnClickHandler(this.#watchlistBtnClickHandler)
+        this.#filmCardComponent.setWatchedBtnClickHandler(this.#watchedBtnClickHandler)
+        this.#filmCardComponent.setFavoriteBtnClickHandler(this.#favoriteBtnClickHandler)
+
         if (prevFilmCardComponent === null) {
-            render(this.#filmCardCompenent, this.#filmsList.element)
+            render(this.#filmCardComponent, this.#container.element)
         }
-        replace(this.#filmCardCompenent, prevFilmCardComponent);
+        replace(this.#filmCardComponent, prevFilmCardComponent);
         remove(prevFilmCardComponent);
     }
     destroy = () => {
-        remove(this.#filmCardCompenent);
+        remove(this.#filmCardComponent);
     }
-    
-    //приватные обработчики для других кнопок карточки
 
+    #watchlistBtnClickHandler = () => {
+        this.#changeData({
+            ...this.#film,
+            userDetails: {
+                ...this.#film.userDetails,
+                watchlist: !this.#film.userDetails.wachlist
+            }
+        })
+    };
+    #watchedBtnClickHandler = () => {
+        this.#changeData({
+            ...this.#film,
+            userDetails: {
+                ...this.#film.userDetails,
+                alreadyWatched: !this.#film.userDetails.alreadyWatched
+            }
+        })
+    };
+    #favoriteBtnClickHandler = () => {
+        this.#changeData({
+            ...this.#film,
+            userDetails: {
+                ...this.#film.userDetails,
+                favorite: !this.#film.userDetails.favorite
+            }
+        })
+    }
 }
-
-
-// const films = [];
-// function renderFilms() {
-//     let film = null;
-//     let comments = null;
-//     const filmsMod = [...filmsModel.get()]
-
-//     for (let i = 0; i < filmsMod.length; i++) {
-//         film = new FilmCardView(filmsMod[i])
-//         film.setOnLinkToFullSize(() => { filmDetailsGenerate(filmsMod[i], commentsModel) })
-//         films.push(film)
-//         render(film, filmslistContainer.element);
-//     }
-// }
-
-// const filmcard = new FilmCardView(testfilm)
-// filmcard.setOnLinkToFullSize(clickTest)
-
-// const filmDetailsGenerate = (film, comments) => {
-//     const filmDetails = new FilmDetails(film, comments)
-//     render(filmDetails, pageBody)
-// }
-
-// const onclickToPoster = () => {
-//     console.log('presed to poster');
-// }
-// renderFilms()
