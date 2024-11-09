@@ -1,6 +1,6 @@
 import HeaderProfileInfo from './view/profile-info-view.js';
-//здесь должен быть фильтр
-import FooterStatistic from './view/footer-statistic-view.js';
+import FilterView from './view/filter-view.js'
+import FooterStatisticView from './view/footer-statistic-view.js';
 
 
 import FilmsPresenter from './presenter/films-presenter.js';
@@ -8,28 +8,29 @@ import FilmsModel from './module/movie.js';
 import CommentsModel from './module/comments-model.js';
 
 import { render } from './framework/render.js';
-import AbstractView from './framework/view/abstract-view.js';
-
-// import { filter } from './utils/filter.js'; разобраться что это
-
-
+import { getUserStatus } from './utils/users.js'
+import { generateFilter } from './mock/filter.js'
 
 const bodyElement = document.querySelector('body');
-const pageHeader = bodyElement.querySelector('.header');
-const pageBody = bodyElement.querySelector('.main');
-const pageFooter = bodyElement.querySelector('.footer');
-const pagefooteStatistics = pageFooter.querySelector('.footer__statistics');
+const siteHeaderElement = bodyElement.querySelector('.header');
+const siteMainElement = bodyElement.querySelector('.main');
+const siteFooterElement = bodyElement.querySelector('.footer');
+const siteFooteStatisticsElement = siteFooterElement.querySelector('.footer__statistics');
 
 
 const filmsModel = new FilmsModel();
 const commentsModel = new CommentsModel(filmsModel.get());
 
-const filmsPresenter = new FilmsPresenter(pageBody, filmsModel, commentsModel);
+const filmsPresenter = new FilmsPresenter(siteMainElement, filmsModel, commentsModel);
 
-render(new HeaderProfileInfo(filmsModel.get()), pageHeader);
-//рендерится фильтрВью
-render(new FooterStatistic(filmsModel.get()), pagefooteStatistics);
+const userStatus = getUserStatus(filmsModel.get());
+const filters = generateFilter(filmsModel.get());
+const filmCount = filmsModel.get().length;
+
+render(new HeaderProfileInfo(userStatus), siteHeaderElement);
+render(new FilterView(filters), siteMainElement)
+render(new FooterStatisticView(filmCount), siteFooteStatisticsElement);
 
 filmsPresenter.init();
 
-console.log('end');
+console.log('markDown great markUp languege');

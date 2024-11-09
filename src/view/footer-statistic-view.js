@@ -4,7 +4,7 @@ function getFooterStatisticTemplate(allFilmsCount) {
     return `<p>${allFilmsCount} movies inside</p>`
 }
 
-export default class FooterStatistic extends AbstractView {
+export default class FooterStatisticView extends AbstractView {
     #allFilmsCount;
     constructor(films){
         super()

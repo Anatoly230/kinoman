@@ -2,7 +2,7 @@ import AbstractView from '../framework/view/abstract-view.js';
 import CommentView from './comment-view.js';
 import { formatMinutsToTime, humanizeTaskDuedate, getMaxStringLength } from "../utils.js";
 
-function getPopupTemplate(film, commentaries) {
+function createfilmFilmDetailsTemplate(film, commentaries) {
   const {
     title, totalRating,
     ageRating, alternativeTitle,
@@ -13,6 +13,7 @@ function getPopupTemplate(film, commentaries) {
     description
   } = film.filmInfo;
   const comments = commentaries.get(film);
+  console.log(comments);
   return `
     <section class="film-details">
   <div class="film-details__inner">
@@ -137,7 +138,7 @@ export default class FilmDetailsView extends AbstractView {
     this.comments = comments;
   }
   get template() {
-    return getPopupTemplate(this.film, this.comments);
+    return createfilmFilmDetailsTemplate(this.film, this.comments);
   }
 
   setCloseBtnClickHandler(callback) {

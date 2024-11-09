@@ -9,11 +9,11 @@ export default class FilmButtonMoreView extends AbstractView {
     get template() {
         return getButtonTemplate();
     }
-    setClickHandler(callback) {
+    setButtonClickHandler(callback) {
         this._callback.click = callback;
-        this.element.addEventListener('click', this.#clickHandler)
+        this.element.addEventListener('click', this.#buttonClickHandler)
     }
-    #clickHandler = (evt) => {
+    #buttonClickHandler = (evt) => {
         evt.preventDefault();
         this._callback.click()
     }

@@ -1,6 +1,6 @@
 import { formatStringToYear, formatMinutsToTime, selectFromArray } from "../utils.js";
 
-export const filmCardInfoTemplate = (filmInfo, commentsLength) => {
+export const createFilmCardInfoTemplate = (filmInfo, commentsLength) => {
     const {
         title, totalRating,
         release, runtime,

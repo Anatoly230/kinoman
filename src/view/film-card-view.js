@@ -1,16 +1,13 @@
 import AbstractView from '../framework/view/abstract-view.js';
-import { filmCardInfoTemplate } from './film-card-info-template.js'
-import { filmCardControlsTemplate } from './film-card-controls-template.js'
+import { createFilmCardInfoTemplate } from './film-card-info-template.js'
+import { createfilmCardControlsTemplate } from './film-card-controls-template.js'
 
-
-const linkToFullSize = '.film-card__link';
-
-const createCardViewTemplate = ({filmInfo, comments}) => {
+const createCardViewTemplate = ({filmInfo, comments, userDetails}) => {
 
   return `
     <article class="film-card">
-    ${filmCardInfoTemplate(filmInfo, comments.length)} 
-    ${filmCardControlsTemplate()} 
+    ${createFilmCardInfoTemplate(filmInfo, comments.length)} 
+    ${createfilmCardControlsTemplate(userDetails)} 
   </article>
   `};
 
@@ -19,20 +16,57 @@ export default class FilmCardView extends AbstractView {
   constructor(film) {
     super()
     this.film = film
-    console.log('cardview ok');
   }
   get template() {
     return createCardViewTemplate(this.film);
   }
 
-  setCardClickHandler(callback) {
-    this._callback.clickOnLinkToFullSize = callback;
-    this.element.querySelector(linkToFullSize).addEventListener('click', this.#cardClickHandler)
+setCardClickHandler(callback) {
+    this._callback.cardClick = callback;
+    this.element
+      .querySelector('a')
+      .addEventListener('click', this.#cardClickHandler);
+  }
+
+  setWatchlistBtnClickHandler(callback) {
+    this._callback.watchlistBtnClick = callback;
+    this.element
+      .querySelector('.film-card__controls-item--add-to-watchlist')
+      .addEventListener('click', this.#watchlistBtnClickHandler);
+  }
+
+  setWatchedBtnClickHandler(callback) {
+    this._callback.watchedBtnClick = callback;
+    this.element
+      .querySelector('.film-card__controls-item--mark-as-watched')
+      .addEventListener('click', this.#watchedBtnClickHandler);
+  }
+
+  setFavoriteBtnClickHandler(callback) {
+    this._callback.favoriteBtnClick = callback;
+    this.element
+      .querySelector('.film-card__controls-item--favorite')
+      .addEventListener('click', this.#favoriteBtnClickHandler);
   }
 
   #cardClickHandler = (evt) => {
     evt.preventDefault();
-    this._callback.clickOnLinkToFullSize();
-  }
+    this._callback.cardClick();
+  };
+
+  #watchlistBtnClickHandler = (evt) => {
+    evt.preventDefault();
+    this._callback.watchlistBtnClick();
+  };
+
+  #watchedBtnClickHandler = (evt) => {
+    evt.preventDefault();
+    this._callback.watchedBtnClick();
+  };
+
+  #favoriteBtnClickHandler = (evt) => {
+    evt.preventDefault();
+    this._callback.favoriteBtnClick();
+  };
 
 }
